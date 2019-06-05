@@ -64,19 +64,19 @@ public class Bot extends TelegramLongPollingBot {
             // Example
             SendMessage message = new SendMessage();
             switch (message_text) {
-                case "Opcion 1":
+                case "Option 1":
                     message.setText("You have selected Option 1.");
                     message.setChatId(chat_id);
                     break;
-                case "Opcion 2":
+                case "Option 2":
                     message.setText("You have selected Option 2.");
                     message.setChatId(chat_id);
                     break;
-                case "Opcion 3":
+                case "Option 3":
                     message.setText("You have selected Option 3.");
                     message.setChatId(chat_id);
                     break;
-                case "Opcion 4":
+                case "Option 4":
                     message.setText("You have selected Option 4.");
                     message.setChatId(chat_id);
                     break;
@@ -95,6 +95,7 @@ public class Bot extends TelegramLongPollingBot {
                 case "Exit":
                     ReplyKeyboardRemove keyboard = new ReplyKeyboardRemove();
                     keyboard.getRemoveKeyboard();
+                    message.setReplyMarkup(keyboard);
                     message.setText("Bye");
                     message.setChatId(chat_id);
                     break;
@@ -112,11 +113,11 @@ public class Bot extends TelegramLongPollingBot {
 
     public String getBotUsername() {
         // Change by your bot username
-        return "BOT_USERNAME";
+        return "ReplyKeyboardMarkupBuilderBot";
     }
 
     public String getBotToken() {
         // Change by your bot token
-        return "BOT_TOKEN";
+        return "622576390:AAHLIzOTTlwS46I60-U3D7u952LVqYPfcgY";
     }
 }
