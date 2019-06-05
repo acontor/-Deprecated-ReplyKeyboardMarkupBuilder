@@ -92,6 +92,10 @@ public class Bot extends TelegramLongPollingBot {
                     message.setText("You have selected Setting 3.");
                     message.setChatId(chat_id);
                     break;
+                case "Setting 4":
+                    message.setText("You have selected Setting 4.");
+                    message.setChatId(chat_id);
+                    break;
                 case "Exit":
                     ReplyKeyboardRemove keyboard = new ReplyKeyboardRemove();
                     keyboard.getRemoveKeyboard();
