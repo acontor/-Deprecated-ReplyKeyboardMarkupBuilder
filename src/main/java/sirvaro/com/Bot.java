@@ -59,55 +59,56 @@ public class Bot extends TelegramLongPollingBot {
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 }
-            }
+            } else {
 
-            // Example
-            SendMessage message = new SendMessage();
-            switch (message_text) {
-                case "Option 1":
-                    message.setText("You have selected Option 1.");
-                    message.setChatId(chat_id);
-                    break;
-                case "Option 2":
-                    message.setText("You have selected Option 2.");
-                    message.setChatId(chat_id);
-                    break;
-                case "Option 3":
-                    message.setText("You have selected Option 3.");
-                    message.setChatId(chat_id);
-                    break;
-                case "Option 4":
-                    message.setText("You have selected Option 4.");
-                    message.setChatId(chat_id);
-                    break;
-                case "Setting 1":
-                    message.setText("You have selected Setting 1.");
-                    message.setChatId(chat_id);
-                    break;
-                case "Setting 2":
-                    message.setText("You have selected Setting 2.");
-                    message.setChatId(chat_id);
-                    break;
-                case "Setting 3":
-                    message.setText("You have selected Setting 3.");
-                    message.setChatId(chat_id);
-                    break;
-                case "Setting 4":
-                    message.setText("You have selected Setting 4.");
-                    message.setChatId(chat_id);
-                    break;
-                case "Exit":
-                    ReplyKeyboardRemove keyboard = new ReplyKeyboardRemove();
-                    keyboard.getRemoveKeyboard();
-                    message.setReplyMarkup(keyboard);
-                    message.setText("Bye");
-                    message.setChatId(chat_id);
-                    break;
-            }
-            try {
-                sendApiMethod(message);
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
+                // Example
+                SendMessage message = new SendMessage();
+                switch (message_text) {
+                    case "Option 1":
+                        message.setText("You have selected Option 1.");
+                        message.setChatId(chat_id);
+                        break;
+                    case "Option 2":
+                        message.setText("You have selected Option 2.");
+                        message.setChatId(chat_id);
+                        break;
+                    case "Option 3":
+                        message.setText("You have selected Option 3.");
+                        message.setChatId(chat_id);
+                        break;
+                    case "Option 4":
+                        message.setText("You have selected Option 4.");
+                        message.setChatId(chat_id);
+                        break;
+                    case "Setting 1":
+                        message.setText("You have selected Setting 1.");
+                        message.setChatId(chat_id);
+                        break;
+                    case "Setting 2":
+                        message.setText("You have selected Setting 2.");
+                        message.setChatId(chat_id);
+                        break;
+                    case "Setting 3":
+                        message.setText("You have selected Setting 3.");
+                        message.setChatId(chat_id);
+                        break;
+                    case "Setting 4":
+                        message.setText("You have selected Setting 4.");
+                        message.setChatId(chat_id);
+                        break;
+                    case "Exit":
+                        ReplyKeyboardRemove keyboard = new ReplyKeyboardRemove();
+                        keyboard.getRemoveKeyboard();
+                        message.setReplyMarkup(keyboard);
+                        message.setText("Bye");
+                        message.setChatId(chat_id);
+                        break;
+                }
+                try {
+                    sendApiMethod(message);
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
             }
 
         }
@@ -117,11 +118,11 @@ public class Bot extends TelegramLongPollingBot {
 
     public String getBotUsername() {
         // Change by your bot username
-        return "ReplyKeyboardMarkupBuilderBot";
+        return "BOT_USERNAME";
     }
 
     public String getBotToken() {
         // Change by your bot token
-        return "622576390:AAHLIzOTTlwS46I60-U3D7u952LVqYPfcgY";
+        return "BOT_TOKEN";
     }
 }
