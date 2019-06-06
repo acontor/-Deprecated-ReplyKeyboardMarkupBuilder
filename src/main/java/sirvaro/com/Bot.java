@@ -1,7 +1,10 @@
 package sirvaro.com;
 
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
+import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -13,106 +16,79 @@ public class Bot extends TelegramLongPollingBot {
         if (update.hasMessage() && update.getMessage().hasText()) {
             String message_text = update.getMessage().getText();
             long chat_id = update.getMessage().getChatId();
-            if (message_text.equals("/start")) {
-                // Create a ReplyMarkupBuilder
-                SendMessage message = ReplyKeyboardMarkupBuilder.create()
-                        .setText("App Menu:")
-                        .setChatId(chat_id)
-                        .row()
-                        .addOption("Option 1")
-                        .addOption("Option 2")
-                        .endRow()
-                        .row()
-                        .addOption("Option 3")
-                        .addOption("Option 4")
-                        .endRow()
-                        .row()
-                        .addOption("Exit")
-                        .endRow()
-                        .build();
-                // Finish
-                try {
-                    sendApiMethod(message);
-                } catch (TelegramApiException e) {
-                    e.printStackTrace();
-                }
-            } else if (message_text.equals("/settings")) {
-                // Create a ReplyMarkupBuilder
-                SendMessage message = ReplyKeyboardMarkupBuilder.create()
-                        .setText("Settings Menu:")
-                        .setChatId(chat_id)
-                        .row()
-                        .addOption("Setting 1")
-                        .addOption("Setting 2")
-                        .endRow()
-                        .row()
-                        .addOption("Setting 3")
-                        .addOption("Setting 4")
-                        .endRow()
-                        .row()
-                        .addOption("Exit")
-                        .endRow()
-                        .build();
-                // Finish
-                try {
-                    sendApiMethod(message);
-                } catch (TelegramApiException e) {
-                    e.printStackTrace();
-                }
-            } else {
+            SendMessage message = new SendMessage();
+            switch (message_text) {
+                case "/reply":
+                    // Create a ReplyMarkupBuilder
+                    message.setText("Reply Menu")
+                            .setChatId(chat_id)
+                            .setReplyMarkup(ReplyKeyboardBuilder.createReply()
+                                    .row()
+                                    .addText("Option 1")
+                                    .addText("Option 2")
+                                    .row()
+                                    .addText("Option 3")
+                                    .addText("Option 4")
+                                    .row()
+                                    .addText("Exit")
+                                    .build()
+                            );
+                    // Finish
+                    break;
+                case "/inline":
+                    message.setText("Inline Menu")
+                            .setChatId(chat_id)
+                            .setReplyMarkup(ReplyKeyboardBuilder.createInline()
+                                    .row()
+                                    .addCallbackData("Button 1", "btn 1")
+                                    .addCallbackData("Button 2", "btn 2")
+                                    .row()
+                                    .addCallbackData("Button 3", "btn 3")
+                                    .addCallbackData("Button 4", "btn 4")
+                                    .row()
+                                    .addCallbackData("Exit", "exit")
+                                    .build()
+                            );
+                    // Finish
+                    break;
+                case "Exit":
+                    ReplyKeyboardRemove keyboard = new ReplyKeyboardRemove();
+                    keyboard.getRemoveKeyboard();
+                    message.setReplyMarkup(keyboard);
+                    message.setChatId(chat_id);
+                    message.setText("Bye");
+                    break;
+                default:
+                    message = new SendMessage(chat_id, "You have selected " + message_text + ".");
+            }
+            try {
+                sendApiMethod(message);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
 
-                // Example
-                SendMessage message = new SendMessage();
-                switch (message_text) {
-                    case "Option 1":
-                        message.setText("You have selected Option 1.");
-                        message.setChatId(chat_id);
-                        break;
-                    case "Option 2":
-                        message.setText("You have selected Option 2.");
-                        message.setChatId(chat_id);
-                        break;
-                    case "Option 3":
-                        message.setText("You have selected Option 3.");
-                        message.setChatId(chat_id);
-                        break;
-                    case "Option 4":
-                        message.setText("You have selected Option 4.");
-                        message.setChatId(chat_id);
-                        break;
-                    case "Setting 1":
-                        message.setText("You have selected Setting 1.");
-                        message.setChatId(chat_id);
-                        break;
-                    case "Setting 2":
-                        message.setText("You have selected Setting 2.");
-                        message.setChatId(chat_id);
-                        break;
-                    case "Setting 3":
-                        message.setText("You have selected Setting 3.");
-                        message.setChatId(chat_id);
-                        break;
-                    case "Setting 4":
-                        message.setText("You have selected Setting 4.");
-                        message.setChatId(chat_id);
-                        break;
-                    case "Exit":
-                        ReplyKeyboardRemove keyboard = new ReplyKeyboardRemove();
-                        keyboard.getRemoveKeyboard();
-                        message.setReplyMarkup(keyboard);
-                        message.setText("Bye");
-                        message.setChatId(chat_id);
-                        break;
-                }
+        } else if (update.hasCallbackQuery()) {
+            CallbackQuery query = update.getCallbackQuery();
+            AnswerCallbackQuery answer = new AnswerCallbackQuery()
+                    .setCallbackQueryId(query.getId());
+            if (query.getData() != null) {
+                answer.setText(query.getData());
+            } else if (query.getGameShortName() != null) {
+                answer.setText(query.getGameShortName());
+            } else {
+                answer.setText("Button has no text");
+            }
+            if (query.getData().equals("exit")) {
+                EditMessageText edit = new EditMessageText()
+                        .setChatId(query.getMessage().getChatId())
+                        .setMessageId(query.getMessage().getMessageId());
                 try {
-                    sendApiMethod(message);
+                    sendApiMethod(edit);
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 }
             }
-
         }
-
     }
 
 
