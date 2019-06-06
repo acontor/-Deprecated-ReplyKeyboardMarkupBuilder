@@ -19,7 +19,7 @@ public class Bot extends TelegramLongPollingBot {
             SendMessage message = new SendMessage();
             switch (message_text) {
                 case "/reply":
-                    // Create a ReplyMarkupBuilder
+                    // Create a Reply Keyboard Markup
                     message.setText("Reply Menu")
                             .setChatId(chat_id)
                             .setReplyMarkup(ReplyKeyboardBuilder.createReply()
@@ -36,17 +36,18 @@ public class Bot extends TelegramLongPollingBot {
                     // Finish
                     break;
                 case "/inline":
+                    // Create a Inline Keyboard
                     message.setText("Inline Menu")
                             .setChatId(chat_id)
                             .setReplyMarkup(ReplyKeyboardBuilder.createInline()
                                     .row()
                                     .addCallbackData("Button 1", "btn 1")
                                     .addCallbackData("Button 2", "btn 2")
-                                    .row()
                                     .addCallbackData("Button 3", "btn 3")
                                     .addCallbackData("Button 4", "btn 4")
                                     .row()
                                     .addCallbackData("Exit", "exit")
+                                    .row()
                                     .build()
                             );
                     // Finish

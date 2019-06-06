@@ -8,9 +8,9 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ArrayList;
 
 public class ReplyKeyboardBuilder {
 
@@ -29,6 +29,9 @@ public class ReplyKeyboardBuilder {
 
         private List<KeyboardRow> keyboard = new ArrayList<>();
         private KeyboardRow row = null;
+
+        ReplyKeyboardMarkupBuilder() {
+        }
 
         public ReplyKeyboardMarkupBuilder row() {
             if (row != null) {
