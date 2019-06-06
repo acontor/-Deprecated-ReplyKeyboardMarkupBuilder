@@ -14,46 +14,36 @@ public class Bot extends TelegramLongPollingBot {
             String message_text = update.getMessage().getText();
             long chat_id = update.getMessage().getChatId();
             if (message_text.equals("/start")) {
-                // Create a ReplyMarkupBuilder
-                SendMessage message = ReplyKeyboardMarkupBuilder.create()
-                        .setText("App Menu:")
-                        .setChatId(chat_id)
-                        .row()
-                        .addOption("Option 1")
-                        .addOption("Option 2")
-                        .endRow()
-                        .row()
-                        .addOption("Option 3")
-                        .addOption("Option 4")
-                        .endRow()
-                        .row()
-                        .addOption("Exit")
-                        .endRow()
-                        .build();
-                // Finish
+                SendMessage message = new SendMessage(chat_id, "App Menu:")
+                        .setReplyMarkup(ReplyKeyboardMarkupBuilder.create()
+                                .row()
+                                .addOption("Option 1")
+                                .addOption("Option 2")
+                                .row()
+                                .addOption("Option 3")
+                                .addOption("Option 4")
+                                .row()
+                                .addOption("Exit")
+                                .build()
+                        );
                 try {
                     sendApiMethod(message);
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 }
             } else if (message_text.equals("/settings")) {
-                // Create a ReplyMarkupBuilder
-                SendMessage message = ReplyKeyboardMarkupBuilder.create()
-                        .setText("Settings Menu:")
-                        .setChatId(chat_id)
-                        .row()
-                        .addOption("Setting 1")
-                        .addOption("Setting 2")
-                        .endRow()
-                        .row()
-                        .addOption("Setting 3")
-                        .addOption("Setting 4")
-                        .endRow()
-                        .row()
-                        .addOption("Exit")
-                        .endRow()
-                        .build();
-                // Finish
+                SendMessage message = new SendMessage(chat_id, "Settings Menu:")
+                        .setReplyMarkup(ReplyKeyboardMarkupBuilder.create()
+                                .row()
+                                .addOption("Setting 1")
+                                .addOption("Setting 2")
+                                .row()
+                                .addOption("Setting 3")
+                                .addOption("Setting 4")
+                                .row()
+                                .addOption("Exit")
+                                .build()
+                        );
                 try {
                     sendApiMethod(message);
                 } catch (TelegramApiException e) {
